@@ -1,6 +1,7 @@
 ﻿using System.Windows.Navigation;
 using PXL.Core;
 using PXL.Core.Services;
+using PXL.Core.Types;
 using PXL.MVVM.Models;
 using PXL.MVVM.Views;
 
@@ -54,6 +55,10 @@ namespace PXL.MVVM.ViewModels
         public MainViewModel()
         {
 			_collectionService = new CBCollectionService();
+			_collectionService.AddCB(PixelColoringBook.CreateTestPixelColoringBook("book1", 10, 10));
+			_collectionService.AddCB(PixelColoringBook.CreateTestPixelColoringBook("book2", 10, 10));
+			_collectionService.AddCB(PixelColoringBook.CreateTestPixelColoringBook("book3", 10, 10));
+			_collectionService.AddCB(PixelColoringBook.CreateTestPixelColoringBook("book4", 10, 10));
 
 			_model = new MainModel();
 

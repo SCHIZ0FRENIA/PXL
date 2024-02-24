@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using System.ComponentModel;
 using PXL.Core.Types;
 
 namespace PXL.Core.Services
@@ -10,6 +11,12 @@ namespace PXL.Core.Services
         public CBCollectionService()
         {
             BookList = new ObservableCollection<PixelColoringBook>();
+        }
+
+        public void AddCB(PixelColoringBook book)
+        {
+            BookList.Add(book);
+            OnPropertyChanged(nameof(BookList));
         }
     }
 }
