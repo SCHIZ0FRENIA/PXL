@@ -1,5 +1,6 @@
 ﻿using System.Windows.Navigation;
 using PXL.Core;
+using PXL.Core.Services;
 using PXL.MVVM.Models;
 using PXL.MVVM.Views;
 
@@ -10,6 +11,8 @@ namespace PXL.MVVM.ViewModels
 	/// </summary>
     internal class MainViewModel : ObservableObject
     {
+		private CBCollectionService _collectionService;
+
         private MainModel _model { get; set; }
 
         public HomeView HomeView { get; set; }
@@ -50,9 +53,12 @@ namespace PXL.MVVM.ViewModels
 		/// </summary>
         public MainViewModel()
         {
+			_collectionService = new CBCollectionService();
+
 			_model = new MainModel();
-            HomeView = new HomeView();
-			NewCBView = new NewCBView();
+
+            HomeView = new HomeView(_collectionService);
+			NewCBView = new NewCBView(_collectionService);
 
 			CurrentView = HomeView;
 
