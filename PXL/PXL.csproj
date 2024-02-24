@@ -78,9 +78,14 @@
     </Compile>
     <Compile Include="Core\MVVM\ObservableObject.cs" />
     <Compile Include="Core\MVVM\RelayCommand.cs" />
+    <Compile Include="Core\Services\CBCollectionService.cs" />
     <Compile Include="Core\Types\PixelColoringBook.cs" />
+    <Compile Include="MVVM\Models\HomeModel.cs" />
     <Compile Include="MVVM\Models\MainModel.cs" />
+    <Compile Include="MVVM\Models\NewCBModel.cs" />
+    <Compile Include="MVVM\ViewModels\HomeViewModel.cs" />
     <Compile Include="MVVM\ViewModels\MainViewModel.cs" />
+    <Compile Include="MVVM\ViewModels\NewCBViewModel.cs" />
     <Compile Include="MVVM\Views\HomeView.xaml.cs">
       <DependentUpon>HomeView.xaml</DependentUpon>
     </Compile>

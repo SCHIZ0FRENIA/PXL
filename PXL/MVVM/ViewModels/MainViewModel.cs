@@ -1,5 +1,6 @@
 ﻿using System.Windows.Navigation;
 using PXL.Core;
+using PXL.MVVM.Models;
 using PXL.MVVM.Views;
 
 namespace PXL.MVVM.ViewModels
@@ -9,6 +10,8 @@ namespace PXL.MVVM.ViewModels
 	/// </summary>
     internal class MainViewModel : ObservableObject
     {
+        private MainModel _model { get; set; }
+
         public HomeView HomeView { get; set; }
         public NewCBView NewCBView { get; set; }
 
@@ -47,6 +50,7 @@ namespace PXL.MVVM.ViewModels
 		/// </summary>
         public MainViewModel()
         {
+			_model = new MainModel();
             HomeView = new HomeView();
 			NewCBView = new NewCBView();
 
