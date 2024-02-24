@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using PXL.Core;
 using PXL.Core.Services;
 using PXL.Core.Types;
 using PXL.MVVM.Models;
@@ -12,11 +13,13 @@ namespace PXL.MVVM.ViewModels
         {
             get => _collectionService.BookList;
         }
-        private HomeModel _model { get; set; }
-        public HomeViewModel(CBCollectionService collectionSevice)
+
+        public RelayCommand ToCB { get; }
+
+        public HomeViewModel(CBCollectionService collectionService,RelayCommand toCB)
         {
-            _collectionService = collectionSevice;
-            _model = new HomeModel();
+            _collectionService = collectionService;
+            ToCB = toCB;
         }
     }
 }

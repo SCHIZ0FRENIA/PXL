@@ -1,4 +1,5 @@
 ﻿using System.Windows.Controls;
+using PXL.Core;
 using PXL.Core.Services;
 using PXL.MVVM.ViewModels;
 
@@ -9,9 +10,9 @@ namespace PXL.MVVM.Views
     /// </summary>
     public partial class HomeView : UserControl
     {
-        public HomeView(CBCollectionService collectionService)
+        public HomeView(CBCollectionService collectionService, RelayCommand toCB)
         {
-            DataContext = new HomeViewModel(collectionService);
+            DataContext = new HomeViewModel(collectionService, toCB);
             InitializeComponent();
         }
     }

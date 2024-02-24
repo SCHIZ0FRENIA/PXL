@@ -64,6 +64,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="MVVM\Views\ColoringBookView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MVVM\Views\HomeView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -76,6 +80,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Core\Converters\ColorConverter.cs" />
     <Compile Include="Core\MVVM\ObservableObject.cs" />
     <Compile Include="Core\MVVM\RelayCommand.cs" />
     <Compile Include="Core\Services\CBCollectionService.cs" />
@@ -83,9 +88,13 @@
     <Compile Include="MVVM\Models\HomeModel.cs" />
     <Compile Include="MVVM\Models\MainModel.cs" />
     <Compile Include="MVVM\Models\NewCBModel.cs" />
+    <Compile Include="MVVM\ViewModels\ColoringBookViewModel.cs" />
     <Compile Include="MVVM\ViewModels\HomeViewModel.cs" />
     <Compile Include="MVVM\ViewModels\MainViewModel.cs" />
     <Compile Include="MVVM\ViewModels\NewCBViewModel.cs" />
+    <Compile Include="MVVM\Views\ColoringBookView.xaml.cs">
+      <DependentUpon>ColoringBookView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MVVM\Views\HomeView.xaml.cs">
       <DependentUpon>HomeView.xaml</DependentUpon>
     </Compile>

@@ -1,4 +1,5 @@
-﻿using System.Windows.Navigation;
+﻿using System.Windows;
+using System.Windows.Navigation;
 using PXL.Core;
 using PXL.Core.Services;
 using PXL.Core.Types;
@@ -18,9 +19,11 @@ namespace PXL.MVVM.ViewModels
 
         public HomeView HomeView { get; set; }
         public NewCBView NewCBView { get; set; }
+		public ColoringBookView ColoringBookView { get; set; }
 
         public RelayCommand HomeViewCommand { get; set; }
         public RelayCommand NewCBViewCommand { get; set; }
+		public RelayCommand ColoringBookCommand { get; set; }
 
 		private object _currenView;
 		/// <summary>
@@ -47,6 +50,12 @@ namespace PXL.MVVM.ViewModels
 		{
 			CurrentView = NewCBView;
 		}
+		private void ChangeToCB(object value)
+		{
+            _collectionService.FindCB(value.ToString());
+			MessageBox.Show(_collectionService.ChoosenCB.Name);
+			CurrentView = new ColoringBookView(_collectionService);
+        }
 		private bool CanChangeView(object value) { return true; }
 
 		/// <summary>
@@ -55,20 +64,23 @@ namespace PXL.MVVM.ViewModels
         public MainViewModel()
         {
 			_collectionService = new CBCollectionService();
-			_collectionService.AddCB(PixelColoringBook.CreateTestPixelColoringBook("book1", 10, 10));
+			_collectionService.AddCB(PixelColoringBook.CreateTestPixelColoringBook("book1", 1, 1));
 			_collectionService.AddCB(PixelColoringBook.CreateTestPixelColoringBook("book2", 10, 10));
 			_collectionService.AddCB(PixelColoringBook.CreateTestPixelColoringBook("book3", 10, 10));
 			_collectionService.AddCB(PixelColoringBook.CreateTestPixelColoringBook("book4", 10, 10));
-
-			_model = new MainModel();
-
-            HomeView = new HomeView(_collectionService);
-			NewCBView = new NewCBView(_collectionService);
-
-			CurrentView = HomeView;
+			_collectionService.FindCB("book1");
 
 			HomeViewCommand = new RelayCommand(ChangeToHome, CanChangeView);
 			NewCBViewCommand = new RelayCommand(ChangeToNewCB, CanChangeView);
+			ColoringBookCommand = new RelayCommand(ChangeToCB, CanChangeView);
+
+			_model = new MainModel();
+
+
+            HomeView = new HomeView(_collectionService, ColoringBookCommand);
+			NewCBView = new NewCBView(_collectionService);
+
+			CurrentView = HomeView;
         }
     }
 }
