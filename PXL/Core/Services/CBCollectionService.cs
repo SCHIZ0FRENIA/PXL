@@ -9,7 +9,7 @@ namespace PXL.Core.Services
 
         public CBCollectionService()
         {
-            
+            BookList = new ObservableCollection<PixelColoringBook>();
         }
     }
 }
