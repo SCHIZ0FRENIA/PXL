@@ -1,37 +1,67 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
 namespace PXL.Core.Types
 {
-    public class PixelColoringBook
+    public class PixelColoringBook 
     {
         public string Name { get; }
-        public System.Drawing.Color[][] ColorMatrix { get; }
-        public System.Drawing.Color[] DistinctColors { get; }
-        public string FilePath { get; }
-        public ImageSource Source { get; }
+        public string FilePath { get; set; }
+        public ImageSource Source { get; set; }
+        public ObservableCollection<ObservableCollection<bool>> IsDrawed { get; set; }
+        public ObservableCollection<ObservableCollection<System.Windows.Media.Color>> SWMCMatrix { get; }
+        public ObservableCollection<ObservableCollection<System.Drawing.Color>> SDCMatrix { get; }
+        public ObservableCollection<System.Windows.Media.Color> SWMCDistinctColors { get; }
+        public ObservableCollection<System.Drawing.Color> SDCDistinctColors { get; }
 
-        public PixelColoringBook(string name, System.Drawing.Color[][] colorMatrix, string filePath = "/img/test.png")
+        public PixelColoringBook(string name, ObservableCollection<ObservableCollection<System.Drawing.Color>> sdcMatrix, string filePath = "/img/test.png")
         {
             Name = name;
-            ColorMatrix = colorMatrix;
-            DistinctColors = FindDistinctColors();
             FilePath = filePath;
-            Source = ConvertBitmapToImageSource(CreateBitmap(colorMatrix));
+            SDCMatrix = sdcMatrix;
+
+            IsDrawed = new ObservableCollection<ObservableCollection<bool>>();
+            foreach (var row in sdcMatrix)
+            {
+                var newRow = new ObservableCollection<bool>();
+                foreach (var item in row)
+                {
+                    newRow.Add(false);
+                }
+                IsDrawed.Add(newRow);
+            }
+
+            SWMCMatrix = new ObservableCollection<ObservableCollection<System.Windows.Media.Color>>();
+            foreach (var row in sdcMatrix)
+            {
+                var newRow = new ObservableCollection<System.Windows.Media.Color>();
+                foreach (var item in row)
+                {
+                    newRow.Add(PixelColoringBook.ConvertToMediaColor(item));
+                }
+                SWMCMatrix.Add(newRow);
+            }
+
+            SDCDistinctColors = FindDistinctColors(SDCMatrix);
+            SWMCDistinctColors = ConvertToMediaColors(SDCDistinctColors);
+
+            Source = ConvertBitmapToImageSource(CreateBitmap(SDCMatrix));
         }
 
-        public static Bitmap CreateBitmap(System.Drawing.Color[][] colors)
+        public static System.Windows.Media.Color ConvertToMediaColor(System.Drawing.Color drawingColor)
         {
-            int width = colors[0].Length;
-            int height = colors.Length;
+            return System.Windows.Media.Color.FromArgb(drawingColor.A, drawingColor.R, drawingColor.G, drawingColor.B);
+        }
+
+        public static Bitmap CreateBitmap(ObservableCollection<ObservableCollection<System.Drawing.Color>> colors)
+        {
+            int width = colors[0].Count;
+            int height = colors.Count;
 
             Bitmap bitmap = new Bitmap(width, height);
 
@@ -59,38 +89,49 @@ namespace PXL.Core.Types
             return bitmapImage;
         }
 
-        private System.Drawing.Color[] FindDistinctColors()
+        public static ObservableCollection<System.Drawing.Color> FindDistinctColors(ObservableCollection<ObservableCollection<System.Drawing.Color>> colorMatrix)
         {
-            System.Drawing.Color[] flattenedColors = ColorMatrix.SelectMany(row => row).ToArray();
-            System.Drawing.Color[] distinctColors = flattenedColors.Distinct().ToArray();
-
+            var flattenedColors = colorMatrix.SelectMany(row => row);
+            HashSet<System.Drawing.Color> distinctColorsHashSet = new HashSet<System.Drawing.Color>();
+            foreach (var color in flattenedColors)
+            {
+                distinctColorsHashSet.Add(color);
+            }
+            ObservableCollection<System.Drawing.Color> distinctColors = new ObservableCollection<System.Drawing.Color>(distinctColorsHashSet);
             return distinctColors;
         }
 
-        private static System.Drawing.Color[][] GenerateTestColorMatrix(int width, int height)
+        public static ObservableCollection<System.Windows.Media.Color> ConvertToMediaColors(ObservableCollection<System.Drawing.Color> colors)
         {
-            System.Drawing.Color[][] colorMatrix = new System.Drawing.Color[height][];
+            return new ObservableCollection<System.Windows.Media.Color>(
+                colors.Select(c => System.Windows.Media.Color.FromArgb(c.A, c.R, c.G, c.B))
+            );
+        }
+
+        public static ObservableCollection<ObservableCollection<System.Drawing.Color>> GenerateTestColorMatrix(int width, int height)
+        {
+            ObservableCollection<ObservableCollection<System.Drawing.Color>> colorMatrix = new ObservableCollection<ObservableCollection<System.Drawing.Color>>();
 
             for (int i = 0; i < height; i++)
             {
-                colorMatrix[i] = new System.Drawing.Color[width];
+                ObservableCollection<System.Drawing.Color> row = new ObservableCollection<System.Drawing.Color>();
                 for (int j = 0; j < width; j++)
                 {
                     int r = (int)(255 * (j / (float)width));
                     int g = (int)(255 * (i / (float)height));
                     int b = 228;
 
-                    colorMatrix[i][j] = System.Drawing.Color.FromArgb(r, g, b);
+                    row.Add(System.Drawing.Color.FromArgb(r, g, b));
                 }
+                colorMatrix.Add(row);
             }
 
             return colorMatrix;
         }
 
-        public static PixelColoringBook CreateTestPixelColoringBook(string name, int width, int height)
+        public static PixelColoringBook CreateTestColorMatrix(string name, int width, int height)
         {
-            System.Drawing.Color[][] testColorMatrix = GenerateTestColorMatrix(width, height);
-            return new PixelColoringBook(name, testColorMatrix);
+            return new PixelColoringBook(name, GenerateTestColorMatrix(width, height));
         }
     }
 }

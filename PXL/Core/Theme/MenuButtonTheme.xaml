@@ -29,9 +29,6 @@
         </Style.Setters>
 
         <Style.Triggers>
-            <Trigger Property="IsChecked" Value="True">
-                <Setter Property ="Background" Value="#22202f"/>
-            </Trigger>
             <MultiTrigger>
                 <MultiTrigger.Conditions>
                     <Condition Property="IsMouseOver" Value="True"/>
@@ -60,6 +57,9 @@
                     </BeginStoryboard>
                 </MultiTrigger.ExitActions>
             </MultiTrigger>
+            <Trigger Property="IsChecked" Value="True">
+                <Setter Property ="Background" Value="#22202f"/>
+            </Trigger>
         </Style.Triggers>
     </Style>
 </ResourceDictionary>

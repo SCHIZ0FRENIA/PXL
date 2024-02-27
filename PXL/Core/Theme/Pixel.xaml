@@ -1,0 +1,22 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:pxl="clr-namespace:PXL.Core.Theme"
+                    xmlns:converters="clr-namespace:PXL.Core.Converters">
+
+    <Style TargetType="{x:Type pxl:Pixel}" x:Key="Pixel">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type pxl:Pixel}">
+                    <Grid>
+                        <Rectangle Height="30" Width="30">
+                            <Rectangle.Fill>
+                                <SolidColorBrush Color="{TemplateBinding PrimaryColor}"/>
+                            </Rectangle.Fill>
+                        </Rectangle>
+                        <TextBlock Text="Pixel" Background="{TemplateBinding PrimaryColor}" Foreground="{TemplateBinding Foreground}"/>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

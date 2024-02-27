@@ -53,7 +53,6 @@ namespace PXL.MVVM.ViewModels
 		private void ChangeToCB(object value)
 		{
             _collectionService.FindCB(value.ToString());
-			MessageBox.Show(_collectionService.ChoosenCB.Name);
 			CurrentView = new ColoringBookView(_collectionService);
         }
 		private bool CanChangeView(object value) { return true; }
@@ -64,10 +63,10 @@ namespace PXL.MVVM.ViewModels
         public MainViewModel()
         {
 			_collectionService = new CBCollectionService();
-			_collectionService.AddCB(PixelColoringBook.CreateTestPixelColoringBook("book1", 1, 1));
-			_collectionService.AddCB(PixelColoringBook.CreateTestPixelColoringBook("book2", 10, 10));
-			_collectionService.AddCB(PixelColoringBook.CreateTestPixelColoringBook("book3", 10, 10));
-			_collectionService.AddCB(PixelColoringBook.CreateTestPixelColoringBook("book4", 10, 10));
+			_collectionService.AddCB(PixelColoringBook.CreateTestColorMatrix("book1", 1, 1));
+			_collectionService.AddCB(PixelColoringBook.CreateTestColorMatrix("book2", 10, 10));
+			_collectionService.AddCB(PixelColoringBook.CreateTestColorMatrix("book3", 10, 10));
+			_collectionService.AddCB(PixelColoringBook.CreateTestColorMatrix("book4", 10, 10));
 			_collectionService.FindCB("book1");
 
 			HomeViewCommand = new RelayCommand(ChangeToHome, CanChangeView);

@@ -11,7 +11,7 @@ namespace PXL.MVVM.ViewModels
         private NewCBModel _model { get; set; }
         public RelayCommand ADDTEST { get; }
 
-        public void addTest(object value) { _collectionService.AddCB(PixelColoringBook.CreateTestPixelColoringBook("TEST", 30, 30)); }
+        public void addTest(object value) { _collectionService.AddCB(PixelColoringBook.CreateTestColorMatrix("Test",20,20)); }
         public NewCBViewModel(CBCollectionService collectionService)
         {
             _collectionService = collectionService;

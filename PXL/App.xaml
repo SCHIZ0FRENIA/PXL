@@ -2,13 +2,18 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:PXL" 
-             StartupUri="/MVVM/Views/MainView.xaml">
+             xmlns:pxl="clr-namespace:PXL.Core.Theme" 
+             StartupUri="/MVVM/Views/MainView.xaml"
+             xmlns:converters="clr-namespace:PXL.Core.Converters">
 
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Core/Theme/MenuButtonTheme.xaml"></ResourceDictionary>
                 <ResourceDictionary Source="Core/Theme/TextBoxTheme.xaml"></ResourceDictionary>
+                <ResourceDictionary Source="Core/Theme/Pixel.xaml">
+                    <converters:ColorConverter x:Key="ColorConverter"/>
+                </ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

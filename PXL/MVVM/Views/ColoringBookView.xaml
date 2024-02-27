@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:PXL.MVVM.Views"
              xmlns:converters="clr-namespace:PXL.Core.Converters"
+             xmlns:pxl="clr-namespace:PXL.Core.Theme"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.Resources>
@@ -16,6 +17,38 @@
             <RowDefinition/>
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
+
+        <ScrollViewer HorizontalScrollBarVisibility="Auto"
+                      VerticalScrollBarVisibility="Auto">
+            <ItemsControl ItemsSource="{Binding ColorMatrix}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <ItemsControl ItemsSource="{Binding}">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <StackPanel Orientation="Horizontal"/>
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition/>
+                                        </Grid.RowDefinitions>
+
+                                        <pxl:Pixel 
+                                        Style="{StaticResource Pixel}"
+                                        PrimaryColor="{Binding}"
+                                        Foreground="{Binding Converter={StaticResource ColorConverter}}"/>
+                                        
+                                    </Grid>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
 
         <ScrollViewer HorizontalScrollBarVisibility="Auto"
                       VerticalScrollBarVisibility="Hidden"
@@ -39,7 +72,7 @@
                                     Width="30" 
                                     Height="30">
                                     <Rectangle.Fill>
-                                        <SolidColorBrush Color="{Binding Converter={StaticResource ColorConverter}}"/>
+                                        <SolidColorBrush Color="{Binding}"/>
                                     </Rectangle.Fill>
                                 </Rectangle>
                             </Grid>

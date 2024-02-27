@@ -60,6 +60,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Core\Theme\Pixel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Core\Theme\TextBoxTheme.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -81,9 +85,11 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Core\Converters\ColorConverter.cs" />
+    <Compile Include="Core\Converters\ToSolidBrush.cs" />
     <Compile Include="Core\MVVM\ObservableObject.cs" />
     <Compile Include="Core\MVVM\RelayCommand.cs" />
     <Compile Include="Core\Services\CBCollectionService.cs" />
+    <Compile Include="Core\Theme\Pixel.cs" />
     <Compile Include="Core\Types\PixelColoringBook.cs" />
     <Compile Include="MVVM\Models\HomeModel.cs" />
     <Compile Include="MVVM\Models\MainModel.cs" />
