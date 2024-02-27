@@ -10,6 +10,7 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Core/Theme/MenuButtonTheme.xaml"></ResourceDictionary>
+                <ResourceDictionary Source="Core/Theme/RadioButtonTheme.xaml"></ResourceDictionary>
                 <ResourceDictionary Source="Core/Theme/TextBoxTheme.xaml"></ResourceDictionary>
                 <ResourceDictionary Source="Core/Theme/Pixel.xaml">
                     <converters:ColorConverter x:Key="ColorConverter"/>

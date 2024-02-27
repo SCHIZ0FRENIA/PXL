@@ -10,6 +10,7 @@
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.Resources>
         <converters:ColorConverter x:Key="ColorConverter"/>
+        <converters:ToSolidBrush x:Key="ToSolidBrush"/>
     </UserControl.Resources>
     
     <Grid>
@@ -35,12 +36,10 @@
                                         <Grid.RowDefinitions>
                                             <RowDefinition/>
                                         </Grid.RowDefinitions>
+                                        <pxl:Pixel Style="{StaticResource Pixel}"
+                                              PrimaryColor="{Binding Converter={StaticResource ColorConverter}}"
+                                              AccentColor="{Binding Converter={StaticResource ColorConverter}}"/>
 
-                                        <pxl:Pixel 
-                                        Style="{StaticResource Pixel}"
-                                        PrimaryColor="{Binding}"
-                                        Foreground="{Binding Converter={StaticResource ColorConverter}}"/>
-                                        
                                     </Grid>
                                 </DataTemplate>
                             </ItemsControl.ItemTemplate>
@@ -61,21 +60,9 @@
                 </ItemsControl.ItemsPanel>
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <RadioButton GroupName="ColorRadio">
-                            <Grid>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="40"/>
-                                    <RowDefinition/>
-                                </Grid.RowDefinitions>
-
-                                <Rectangle 
-                                    Width="30" 
-                                    Height="30">
-                                    <Rectangle.Fill>
-                                        <SolidColorBrush Color="{Binding}"/>
-                                    </Rectangle.Fill>
-                                </Rectangle>
-                            </Grid>
+                        <RadioButton GroupName="ColorRadio"
+                                     Style="{StaticResource RadioButtonTheme}"
+                                     Background="{Binding Converter={StaticResource ColorConverter}}">
                         </RadioButton>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>

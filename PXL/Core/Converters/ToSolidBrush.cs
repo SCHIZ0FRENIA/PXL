@@ -9,24 +9,16 @@ namespace PXL.Core.Converters
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value is System.Drawing.Color drawingColor)
+            if (value is Color color)
             {
-                return new SolidColorBrush(Color.FromArgb(drawingColor.A, drawingColor.R, drawingColor.G, drawingColor.B));
+                return new SolidColorBrush(color);
             }
-            return new SolidColorBrush(Colors.Black); // Default color if conversion fails
+            return null; // Or any default value you wish to return for invalid input
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value is SolidColorBrush solidColorBrush)
-            {
-                return System.Drawing.Color.FromArgb(
-                    solidColorBrush.Color.A,
-                    solidColorBrush.Color.R,
-                    solidColorBrush.Color.G,
-                    solidColorBrush.Color.B);
-            }
-            return System.Drawing.Color.Black; // Default color if conversion fails
+            throw new NotImplementedException();
         }
     }
 }
