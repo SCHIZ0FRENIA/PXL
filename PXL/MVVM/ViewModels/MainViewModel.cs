@@ -63,11 +63,6 @@ namespace PXL.MVVM.ViewModels
         public MainViewModel()
         {
 			_collectionService = new CBCollectionService();
-			_collectionService.AddCB(PixelColoringBook.CreateTestColorMatrix("book1", 1, 1));
-			_collectionService.AddCB(PixelColoringBook.CreateTestColorMatrix("book2", 10, 10));
-			_collectionService.AddCB(PixelColoringBook.CreateTestColorMatrix("book3", 10, 10));
-			_collectionService.AddCB(PixelColoringBook.CreateTestColorMatrix("book4", 10, 10));
-			_collectionService.FindCB("book1");
 
 			HomeViewCommand = new RelayCommand(ChangeToHome, CanChangeView);
 			NewCBViewCommand = new RelayCommand(ChangeToNewCB, CanChangeView);

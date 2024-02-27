@@ -19,14 +19,14 @@ namespace PXL.Core.Types
         public ObservableCollection<System.Windows.Media.Color> SWMCDistinctColors { get; }
         public ObservableCollection<System.Drawing.Color> SDCDistinctColors { get; }
 
-        public PixelColoringBook(string name, ObservableCollection<ObservableCollection<System.Drawing.Color>> sdcMatrix, string filePath = "/img/test.png")
+        public PixelColoringBook(string name, string filePath )
         {
             Name = name;
             FilePath = filePath;
-            SDCMatrix = sdcMatrix;
+            SDCMatrix = ConvertImageToColorCollection(filePath);
 
             IsDrawed = new ObservableCollection<ObservableCollection<bool>>();
-            foreach (var row in sdcMatrix)
+            foreach (var row in SDCMatrix)
             {
                 var newRow = new ObservableCollection<bool>();
                 foreach (var item in row)
@@ -37,7 +37,7 @@ namespace PXL.Core.Types
             }
 
             SWMCMatrix = new ObservableCollection<ObservableCollection<System.Windows.Media.Color>>();
-            foreach (var row in sdcMatrix)
+            foreach (var row in SDCMatrix)
             {
                 var newRow = new ObservableCollection<System.Windows.Media.Color>();
                 foreach (var item in row)
@@ -129,9 +129,31 @@ namespace PXL.Core.Types
             return colorMatrix;
         }
 
-        public static PixelColoringBook CreateTestColorMatrix(string name, int width, int height)
+        public static PixelColoringBook CreateByFilePath ( string name, string filePath)
         {
-            return new PixelColoringBook(name, GenerateTestColorMatrix(width, height));
+            return new PixelColoringBook(name, filePath);
         }
+        public static ObservableCollection<ObservableCollection<System.Drawing.Color>> ConvertImageToColorCollection(string filePath)
+        {
+            Bitmap bitmap = new Bitmap(filePath);
+
+            ObservableCollection<ObservableCollection<System.Drawing.Color>> colorCollection = new ObservableCollection<ObservableCollection<System.Drawing.Color>>();
+
+            for (int y = 0; y < bitmap.Height; y++)
+            {
+                ObservableCollection<System.Drawing.Color> rowCollection = new ObservableCollection<System.Drawing.Color>();
+
+                for (int x = 0; x < bitmap.Width; x++)
+                {
+                    System.Drawing.Color pixelColor = bitmap.GetPixel(x, y);
+                    rowCollection.Add(pixelColor);
+                }
+                colorCollection.Add(rowCollection);
+            }
+
+            bitmap.Dispose();
+            return colorCollection;
+        }
+
     }
 }

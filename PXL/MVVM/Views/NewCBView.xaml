@@ -6,13 +6,44 @@
              xmlns:local="clr-namespace:PXL.MVVM.Views"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition/>
-            <RowDefinition/>
-        </Grid.RowDefinitions>
-        <TextBlock Text="New Color Book VIEW" Foreground="White" FontSize="20" FontWeight="DemiBold"/>
-        <Button Grid.Row="1"
-                Command="{Binding ADDTEST}"/>
-    </Grid>
+    
+    <StackPanel
+        Margin="20 10">
+
+        <TextBlock 
+            Grid.Row="1"
+            Text="New Color Book"
+            Foreground="White"
+            FontSize="24"
+            FontWeight="DemiBold"
+            Grid.Column="1"/>
+
+        <TextBox 
+            Margin="20 10"
+            Padding="5 5"
+            Text="{Binding Name}"/> 
+
+        <TextBlock 
+            Text="{Binding FilePath}"
+            Foreground="White"
+            Margin="20 10"
+            FontSize="18"/>
+
+        <StackPanel 
+            Orientation="Horizontal"
+            HorizontalAlignment="Right">
+            
+            <Button 
+                Command="{Binding OpenFile}"
+                Content="Open File"
+                Padding="5 3"/>
+
+            <Button
+                Command="{Binding AddCB}"
+                Content="Add coloring book"
+                Margin="10 0 0 0"
+                Padding="5 3"/>
+        </StackPanel>
+
+    </StackPanel>
 </UserControl>
