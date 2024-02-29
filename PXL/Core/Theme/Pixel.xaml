@@ -10,20 +10,30 @@
                     <Grid
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center"
-                        Height="60" Width="60">
-                        <Rectangle Height="50" Width="50" Fill="{Binding AccentColor, RelativeSource={RelativeSource TemplatedParent}}" />
+                        Height="60" Width="60"
+                        >
+                        <Rectangle Height="50" Width="50" Fill="{TemplateBinding PrimaryColor}" />
                     </Grid>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
 
         <Style.Triggers>
+            <Trigger Property="CanDraw" Value="False">
+                <Setter Property ="Opacity" Value="0"/>
+            </Trigger>
+            <MultiTrigger>
+                <MultiTrigger.Conditions>
+                    <Condition Property="IsChecked" Value="False"/>
+                    <Condition Property="CanDraw" Value="True"/>
+                </MultiTrigger.Conditions>
+                <MultiTrigger.Setters>
+                    <Setter Property ="Opacity" Value="0.5"/>
+                    <Setter Property ="Opacity" Value="0.5"/>
+                </MultiTrigger.Setters>
+            </MultiTrigger>
             <Trigger Property="IsChecked" Value="True">
-                <Setter Property ="Effect">
-                    <Setter.Value>
-                        <DropShadowEffect/>
-                    </Setter.Value>
-                </Setter>
+                <Setter Property ="Opacity" Value="1"/>
             </Trigger>
         </Style.Triggers>
     </Style>

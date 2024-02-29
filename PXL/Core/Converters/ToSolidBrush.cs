@@ -11,6 +11,17 @@ namespace PXL.Core.Converters
         {
             if (value is Color color)
             {
+                double k = 0.1;
+
+                byte buff = (byte)(color.A * k);
+                color.A = buff;
+                buff = (byte)(color.R * k);
+                color.R = buff;
+                buff = (byte)(color.G * k);
+                color.G = buff;
+                buff = (byte)(color.B * k);
+                color.B = buff;
+
                 return new SolidColorBrush(color);
             }
             return null; // Or any default value you wish to return for invalid input

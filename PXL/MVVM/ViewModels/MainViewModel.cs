@@ -1,21 +1,16 @@
-﻿using System.Windows;
-using System.Windows.Navigation;
-using PXL.Core;
+﻿using PXL.Core;
 using PXL.Core.Services;
 using PXL.Core.Types;
-using PXL.MVVM.Models;
 using PXL.MVVM.Views;
 
 namespace PXL.MVVM.ViewModels
 {
-	/// <summary>
-	/// View model for MainView.cs
-	/// </summary>
+    /// <summary>
+    /// View model for MainView.cs
+    /// </summary>
     internal class MainViewModel : ObservableObject
     {
 		private CBCollectionService _collectionService;
-
-        private MainModel _model { get; set; }
 
         public HomeView HomeView { get; set; }
         public NewCBView NewCBView { get; set; }
@@ -63,12 +58,16 @@ namespace PXL.MVVM.ViewModels
         public MainViewModel()
         {
 			_collectionService = new CBCollectionService();
+			
 
 			HomeViewCommand = new RelayCommand(ChangeToHome, CanChangeView);
 			NewCBViewCommand = new RelayCommand(ChangeToNewCB, CanChangeView);
 			ColoringBookCommand = new RelayCommand(ChangeToCB, CanChangeView);
 
-			_model = new MainModel();
+
+			_collectionService.AddCB(new PixelColoringBook("Test", "C:\\Users\\User\\Documents\\2.2\\OTHR\\PXL\\PXL\\PXL\\img\\test.png"));
+			_collectionService.AddCB(new PixelColoringBook("Test1", "C:\\Users\\User\\Documents\\2.2\\OTHR\\PXL\\PXL\\PXL\\img\\test1.jpg"));
+
 
 
             HomeView = new HomeView(_collectionService, ColoringBookCommand);
@@ -76,5 +75,15 @@ namespace PXL.MVVM.ViewModels
 
 			CurrentView = HomeView;
         }
+
+		public void Serialize()
+		{
+
+		}
+
+		public void Deserialize()
+		{
+
+		}
     }
 }

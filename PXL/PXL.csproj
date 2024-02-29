@@ -96,9 +96,6 @@
     <Compile Include="Core\Services\CBCollectionService.cs" />
     <Compile Include="Core\Theme\Pixel.cs" />
     <Compile Include="Core\Types\PixelColoringBook.cs" />
-    <Compile Include="MVVM\Models\HomeModel.cs" />
-    <Compile Include="MVVM\Models\MainModel.cs" />
-    <Compile Include="MVVM\Models\NewCBModel.cs" />
     <Compile Include="MVVM\ViewModels\ColoringBookViewModel.cs" />
     <Compile Include="MVVM\ViewModels\HomeViewModel.cs" />
     <Compile Include="MVVM\ViewModels\MainViewModel.cs" />

@@ -1,17 +1,14 @@
 ﻿using System;
 using System.Windows.Forms;
-using Microsoft.Win32;
 using PXL.Core;
 using PXL.Core.Services;
 using PXL.Core.Types;
-using PXL.MVVM.Models;
 
 namespace PXL.MVVM.ViewModels
 {
     public class NewCBViewModel : ObservableObject
     {
         private CBCollectionService _collectionService;
-        private NewCBModel _model { get; set; }
         public RelayCommand AddCB { get; }
         public RelayCommand OpenFile { get; set; }
         public string FilePath { get; set; }
@@ -22,7 +19,6 @@ namespace PXL.MVVM.ViewModels
         public NewCBViewModel(CBCollectionService collectionService)
         {
             _collectionService = collectionService;
-            _model = new NewCBModel();
             AddCB = new RelayCommand(addCB);
             OpenFile = new RelayCommand(openFile);
         }

@@ -3,21 +3,59 @@ using System.Collections.ObjectModel;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Security;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
 namespace PXL.Core.Types
 {
-    public class PixelColoringBook 
+    public class PixelLogic : ObservableObject
+    {
+        public PixelLogic(bool CcanDraw,bool IisDrawed, System.Windows.Media.Color color)
+        {
+            this.CanDraw = CcanDraw;
+            this.IsDrawed = IisDrawed;
+            this.color = color;
+        }
+        private bool isDrawed;
+        public bool IsDrawed
+        {
+            get
+            {
+                return isDrawed;
+            }
+            set
+            {
+                isDrawed = value;
+                OnPropertyChanged(nameof(IsDrawed));
+            }
+        }
+
+        private bool canDraw;
+        public bool CanDraw
+        {
+            get
+            {
+                return canDraw;
+            }
+            set
+            {
+                canDraw = value;
+                OnPropertyChanged(nameof(CanDraw));
+            }
+        }
+        public System.Windows.Media.Color color { get; set; }
+
+    }
+    public class PixelColoringBook : ObservableObject
     {
         public string Name { get; }
         public string FilePath { get; set; }
         public ImageSource Source { get; set; }
-        public ObservableCollection<ObservableCollection<bool>> IsDrawed { get; set; }
-        public ObservableCollection<ObservableCollection<System.Windows.Media.Color>> SWMCMatrix { get; }
         public ObservableCollection<ObservableCollection<System.Drawing.Color>> SDCMatrix { get; }
         public ObservableCollection<System.Windows.Media.Color> SWMCDistinctColors { get; }
         public ObservableCollection<System.Drawing.Color> SDCDistinctColors { get; }
+        public ObservableCollection<ObservableCollection<PixelLogic>>  MATRIX { get; set; }
 
         public PixelColoringBook(string name, string filePath )
         {
@@ -25,26 +63,16 @@ namespace PXL.Core.Types
             FilePath = filePath;
             SDCMatrix = ConvertImageToColorCollection(filePath);
 
-            IsDrawed = new ObservableCollection<ObservableCollection<bool>>();
-            foreach (var row in SDCMatrix)
-            {
-                var newRow = new ObservableCollection<bool>();
-                foreach (var item in row)
-                {
-                    newRow.Add(false);
-                }
-                IsDrawed.Add(newRow);
-            }
+            MATRIX = new ObservableCollection<ObservableCollection<PixelLogic>>();
 
-            SWMCMatrix = new ObservableCollection<ObservableCollection<System.Windows.Media.Color>>();
             foreach (var row in SDCMatrix)
             {
-                var newRow = new ObservableCollection<System.Windows.Media.Color>();
+                var newRow = new ObservableCollection<PixelLogic>();
                 foreach (var item in row)
                 {
-                    newRow.Add(PixelColoringBook.ConvertToMediaColor(item));
+                    newRow.Add(new PixelLogic(false, false, ConvertToMediaColor(item)));
                 }
-                SWMCMatrix.Add(newRow);
+                MATRIX.Add(newRow);
             }
 
             SDCDistinctColors = FindDistinctColors(SDCMatrix);

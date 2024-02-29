@@ -2,7 +2,6 @@
 using PXL.Core;
 using PXL.Core.Services;
 using PXL.Core.Types;
-using PXL.MVVM.Models;
 
 namespace PXL.MVVM.ViewModels
 {

@@ -21,10 +21,12 @@
 
         <ScrollViewer HorizontalScrollBarVisibility="Auto"
                       VerticalScrollBarVisibility="Auto">
-            <ItemsControl ItemsSource="{Binding ColorMatrix}">
+            <ItemsControl 
+                ItemsSource="{Binding ColorMatrix}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <ItemsControl ItemsSource="{Binding}">
+                        <ItemsControl ItemsSource="{Binding}"
+                                     x:Name="Source">
                             <ItemsControl.ItemsPanel>
                                 <ItemsPanelTemplate>
                                     <StackPanel Orientation="Horizontal"/>
@@ -36,9 +38,14 @@
                                         <Grid.RowDefinitions>
                                             <RowDefinition/>
                                         </Grid.RowDefinitions>
-                                        <pxl:Pixel Style="{StaticResource Pixel}"
-                                              PrimaryColor="{Binding Converter={StaticResource ColorConverter}}"
-                                              AccentColor="{Binding Converter={StaticResource ColorConverter}}"/>
+                                        <pxl:Pixel 
+                                            Style="{StaticResource Pixel}"
+                                            PrimaryColor="{Binding color, Converter={StaticResource ColorConverter}}"
+                                            AccentColor="{Binding color, Converter={StaticResource ToSolidBrush}}"
+                                            IsChecked="{Binding IsDrawed}"
+                                            CanDraw="{Binding CanDraw}"
+                                            DarkColor="AliceBlue"
+                                            Command="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=DataContext.IsDrawCommand}"/>
 
                                     </Grid>
                                 </DataTemplate>
@@ -60,9 +67,12 @@
                 </ItemsControl.ItemsPanel>
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <RadioButton GroupName="ColorRadio"
-                                     Style="{StaticResource RadioButtonTheme}"
-                                     Background="{Binding Converter={StaticResource ColorConverter}}">
+                        <RadioButton 
+                            GroupName="ColorRadio"
+                            Style="{StaticResource RadioButtonTheme}"
+                            Background="{Binding Converter={StaticResource ColorConverter}}"
+                            Command="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ItemsControl}}, Path=DataContext.ColorChangeCommand}"
+                            CommandParameter="{Binding}">
                         </RadioButton>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
