@@ -36,15 +36,22 @@ namespace PXL.MVVM.ViewModels
             }
             OnPropertyChanged(nameof(_collectionService));
         }
+
         public void IsDraw(object value)
         {
             
         }
+
+        public bool CanDraw(object value)
+        {
+            return ((PixelLogic)value).CanDraw;
+        }
+
         public ColoringBookViewModel(CBCollectionService collectionService)
         {
             _collectionService = collectionService;
             ColorChangeCommand = new RelayCommand(ColorChange);
-            IsDrawCommand = new RelayCommand(IsDraw);
+            IsDrawCommand = new RelayCommand(IsDraw, CanDraw);
         }
     }
 }

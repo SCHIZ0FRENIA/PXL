@@ -41,13 +41,6 @@
                     <ColumnDefinition Width="auto"/>
                 </Grid.ColumnDefinitions>
 
-                <TextBox Width="250"
-                 Height="30"
-                 VerticalContentAlignment="Center"
-                 HorizontalAlignment="Left"
-                 Grid.Column="0"
-                 Style="{StaticResource ModernTextBox}"/>
-
                 <Button
                     Background="Transparent"
                     Grid.Column="1"

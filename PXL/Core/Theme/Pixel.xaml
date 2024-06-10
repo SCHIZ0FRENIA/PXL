@@ -32,6 +32,16 @@
                     <Setter Property ="Opacity" Value="0.5"/>
                 </MultiTrigger.Setters>
             </MultiTrigger>
+            <MultiTrigger>
+                <MultiTrigger.Conditions>
+                    <Condition Property="IsChecked" Value="False"/>
+                    <Condition Property="CanDraw" Value="False"/>
+                </MultiTrigger.Conditions>
+                <MultiTrigger.Setters>
+                    <Setter Property ="Opacity" Value="0.1"/>
+                    <Setter Property ="Opacity" Value="0.1"/>
+                </MultiTrigger.Setters>
+            </MultiTrigger>
             <Trigger Property="IsChecked" Value="True">
                 <Setter Property ="Opacity" Value="1"/>
             </Trigger>
