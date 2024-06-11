@@ -14,7 +14,30 @@ namespace PXL.MVVM.ViewModels
         public string FilePath { get; set; }
         public string Name { get; set; }
 
-        public void addCB(object value) { _collectionService.AddCB(PixelColoringBook.CreateByFilePath(Name, FilePath)); }
+        public void addCB(object value) 
+        { 
+            if (String.IsNullOrEmpty(FilePath))
+            {
+                MessageBox.Show(
+                        "Пожалуйста, выберите картинку!",
+                        "Неверный файл",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error
+                    );
+                return;
+            }
+            if (String.IsNullOrEmpty(Name))
+            {
+                MessageBox.Show(
+                        "Пожалуйста, введите имя!",
+                        "Неверное имя раскраски",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error
+                    );
+                return;
+            }
+            _collectionService.AddCB(PixelColoringBook.CreateByFilePath(Name, FilePath)); 
+        }
         
         public NewCBViewModel(CBCollectionService collectionService)
         {

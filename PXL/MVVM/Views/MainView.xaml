@@ -24,7 +24,7 @@
                 <RowDefinition/>
             </Grid.RowDefinitions>
 
-            <TextBlock Text="PXL"
+            <TextBlock Text="Happy Color"
                    VerticalAlignment="Center"
                    HorizontalAlignment="Left"
                    Foreground="White"
